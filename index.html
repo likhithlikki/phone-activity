@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phone Activity</title>
+<meta name="theme-color" content="#3b6df0">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Phone Activity">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="login" hidden>
+  <div class="loginbox">
+    <img src="icons/icon-192.png" alt="" width="72" height="72">
+    <h1>Phone activity</h1>
+    <p class="hint">Sign in with Google. Then tap <b>Add phone</b> and scan the QR code shown in the phone app. No URLs or keys to type.</p>
+    <button id="signin" class="primary">Sign in with Google</button>
+    <p id="loginmsg" class="msg"></p>
+  </div>
+</section>
+
+<div id="app" hidden>
+<header>
+  <div class="top">
+    <h1>Phone activity</h1>
+    <div class="controls">
+      <select id="device" aria-label="Phone"></select>
+      <div class="seg" id="range" role="group" aria-label="Date range">
+        <button data-d="1">Today</button>
+        <button data-d="7" class="on">7 days</button>
+        <button data-d="30">30 days</button>
+      </div>
+      <label class="sw" title="While this page is open, ask the phone to send data every 15 seconds"><input type="checkbox" id="auto" checked><span class="knob"></span><span>Live</span></label>
+      <button id="bell" title="Live notifications" aria-label="Live notifications">🔔<span id="bellbadge" class="bellbadge" hidden>0</span></button>
+      <button id="refresh">Refresh</button>
+      <button id="addphone" class="primary">Add phone</button>
+      <button id="install" hidden>Install app</button>
+      <button id="signout" title="Sign out"><span id="who"></span> ⎋</button>
+    </div>
+  </div>
+  <nav id="tabs">
+    <button data-t="overview" class="on">Overview</button>
+    <button data-t="apps">App usage</button>
+    <button data-t="screen">Screen time</button>
+    <button data-t="device">Device</button>
+    <button data-t="calendar">Calendar</button>
+    <button data-t="notifications">Notifications</button>
+    <button data-t="insights">Insights</button>
+    <button data-t="remote">Remote control</button>
+    <button data-t="phones">Phones &amp; alerts</button>
+  </nav>
+</header>
+
+<main>
+  <p id="msg" class="msg" role="status"></p>
+  <div id="banner"></div>
+  <div id="view"></div>
+</main>
+
+<aside id="drawer" hidden aria-label="Live notifications">
+  <div class="drawerhead"><h3>Live notifications</h3><button id="drawerclose" aria-label="Close">✕</button></div>
+  <div id="drawerlist"></div>
+</aside>
+</div>
+
+<dialog id="scan">
+  <h2>Add a phone</h2>
+  <p class="hint">In the phone app tap <b>Pair with website (QR)</b>, then point this camera at the code.</p>
+  <div class="vwrap"><video id="vid" playsinline muted></video><div class="reticle"></div></div>
+  <p id="scanmsg" class="statline"></p>
+  <label class="filebtn">Or choose a photo of the QR code <input id="qrfile" type="file" accept="image/*"></label>
+  <canvas id="qrcanvas" hidden></canvas>
+  <div class="row"><button id="scancancel">Close</button></div>
+</dialog>
+
+<dialog id="shotdlg"><img id="shotimg" alt="Screenshot from the phone" style="width:100%;border-radius:8px"><div class="row"><button id="shotclose">Close</button></div></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
